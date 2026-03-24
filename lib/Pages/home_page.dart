@@ -7,15 +7,17 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+
       body: Column(
         children: [
-          // header
+
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 20),
             color: Colors.white,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+
                 const Text(
                   "FASHION",
                   style: TextStyle(
@@ -26,6 +28,7 @@ class HomePage extends StatelessWidget {
 
                 Row(
                   children: [
+
                     const Text("Головна"),
                     const SizedBox(width: 20),
                     const Text("Новинки"),
@@ -33,6 +36,7 @@ class HomePage extends StatelessWidget {
                     const Text("Магазин"),
                     const SizedBox(width: 20),
                     const Text("Контакти"),
+
                     const SizedBox(width: 30),
 
                     Container(
@@ -69,19 +73,21 @@ class HomePage extends StatelessWidget {
             ),
           ),
 
-          // hero section
           Expanded(
             child: Container(
               color: const Color(0xFFE7D24C),
               padding: const EdgeInsets.symmetric(horizontal: 60),
+
               child: Row(
                 children: [
-                  // текст зліва
+
                   Expanded(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
+
                       children: [
+
                         const Text(
                           "ДАВАЙТЕ\nДОСЛІДЖУВАТИ\nУНІКАЛЬНИЙ\nОДЯГ.",
                           style: TextStyle(
@@ -90,11 +96,14 @@ class HomePage extends StatelessWidget {
                             height: 1.1,
                           ),
                         ),
+
                         const SizedBox(height: 20),
+
                         const Text(
                           "Живи модою та створюй свій стиль",
                           style: TextStyle(fontSize: 18),
                         ),
+
                         const SizedBox(height: 30),
 
                         ElevatedButton(
@@ -121,26 +130,36 @@ class HomePage extends StatelessWidget {
                     ),
                   ),
 
-                  // фото справа
                   Expanded(
                     child: Center(
                       child: Container(
-                        width: 300,
-                        height: 300,
-                        color: Colors.pink[200],
-                        child: const Center(
-                          child: Text(
-                            "IMAGE",
-                            style: TextStyle(fontSize: 28),
+                        width: 400,
+                        height: 450,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+
+                          image: const DecorationImage(
+                            image: AssetImage("assets/images/IMG_4229.JPG"),
+                            fit: BoxFit.cover,
                           ),
+
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
+
                 ],
               ),
             ),
           ),
+
         ],
       ),
     );
