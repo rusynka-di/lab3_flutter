@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 // import 'Pages/register_page.dart';
 // import 'Pages/home_page.dart';
 // import 'Pages/detail_page.dart';
-import 'Pages/products_page.dart';
-// import 'Pages/edit_user_page.dart';
+// import 'Pages/products_page.dart';
+import 'Pages/contact_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProductsPage(),
+      home: ContactPage(),
     );
   }
 }
