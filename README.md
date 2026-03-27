@@ -1,17 +1,15 @@
-# lab3_flutter
+# Lab 3 Flutter
 
-A new Flutter project.
+## Опис проєкту
+Мобільний додаток магазину одягу, створений за допомогою Flutter.
 
-## Getting Started
+Додаток містить основні сторінки:
+- Головна сторінка
+- Сторінки входу та реєстрації
+- Сторінка товарів
+- Детальна сторінка товару
+- Сторінка контактів
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Дизайн
+Макет інтерфейсу створено в Figma:
+https://www.figma.com/design/vA5Vhf1Tlwum8lgGQbKpLi/Untitled?node-id=0-1&t=134aFMqvnQ4I2WQF-1
