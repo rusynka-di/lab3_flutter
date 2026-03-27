@@ -80,45 +80,73 @@ class ProductsPage extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              GridView.count(
-                crossAxisCount: 3,
-                shrinkWrap: true,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                physics: const NeverScrollableScrollPhysics(),
-                childAspectRatio: 0.95,
-                children: const [
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4229.JPG",
-                    title: "Жакет класичний",
-                    price: "1199 грн",
-                  ),
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4281.JPG",
-                    title: "Сукня міді",
-                    price: "999 грн",
-                  ),
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4229.JPG",
-                    title: "Куртка демісезонна",
-                    price: "1599 грн",
-                  ),
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4281.JPG",
-                    title: "Футболка basic",
-                    price: "399 грн",
-                  ),
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4229.JPG",
-                    title: "Штани casual",
-                    price: "899 грн",
-                  ),
-                  ProductCard(
-                    imagePath: "assets/images/IMG_4281.JPG",
-                    title: "Кардиган теплий",
-                    price: "1099 грн",
-                  ),
-                ],
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  double itemWidth = (constraints.maxWidth - 32) / 3;
+
+                  if (constraints.maxWidth < 1100) {
+                    itemWidth = (constraints.maxWidth - 16) / 2;
+                  }
+
+                  if (constraints.maxWidth < 700) {
+                    itemWidth = constraints.maxWidth;
+                  }
+
+                  return Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: [
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4229.JPG",
+                          title: "Жакет класичний",
+                          price: "1199 грн",
+                        ),
+                      ),
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4281.JPG",
+                          title: "Сукня міді",
+                          price: "999 грн",
+                        ),
+                      ),
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4229.JPG",
+                          title: "Куртка демісезонна",
+                          price: "1599 грн",
+                        ),
+                      ),
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4281.JPG",
+                          title: "Футболка basic",
+                          price: "399 грн",
+                        ),
+                      ),
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4229.JPG",
+                          title: "Штани casual",
+                          price: "899 грн",
+                        ),
+                      ),
+                      SizedBox(
+                        width: itemWidth,
+                        child: const ProductCard(
+                          imagePath: "assets/images/IMG_4281.JPG",
+                          title: "Кардиган теплий",
+                          price: "1099 грн",
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
@@ -165,7 +193,7 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: isHorizontalScroll ? 210 : 230,
+            height: isHorizontalScroll ? 210 : 220,
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.vertical(
                 top: Radius.circular(16),
@@ -176,7 +204,6 @@ class ProductCard extends StatelessWidget {
               ),
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(12),
             child: Column(
@@ -193,9 +220,7 @@ class ProductCard extends StatelessWidget {
                     color: Colors.black,
                   ),
                 ),
-
                 const SizedBox(height: 8),
-
                 Text(
                   price,
                   style: const TextStyle(

@@ -31,8 +31,6 @@ class HomePage extends StatelessWidget {
 
                     const Text("Головна"),
                     const SizedBox(width: 20),
-                    const Text("Новинки"),
-                    const SizedBox(width: 20),
                     const Text("Магазин"),
                     const SizedBox(width: 20),
                     const Text("Контакти"),
@@ -100,7 +98,7 @@ class HomePage extends StatelessWidget {
                         const SizedBox(height: 20),
 
                         const Text(
-                          "Живи модою та створюй свій стиль",
+                          "Живіть модою та створюйте свій стиль",
                           style: TextStyle(fontSize: 18),
                         ),
 
