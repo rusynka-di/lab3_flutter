@@ -74,7 +74,13 @@ class _RegisterPageState extends State<RegisterPage> {
                   const SizedBox(height: 30),
 
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                        context,
+                        '/main',
+                        (Route<dynamic> route) => false,
+                      );
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5B4FCF),
                       minimumSize: const Size(double.infinity, 55),
@@ -97,7 +103,9 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
                       child: RichText(
                         text: const TextSpan(
                           text: "Вже маєте акаунт? ",
