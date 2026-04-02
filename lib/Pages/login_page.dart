@@ -61,7 +61,9 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 30),
 
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushReplacementNamed(context, '/main');
+                    },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5B4FCF),
                       minimumSize: const Size(double.infinity, 55),
@@ -84,7 +86,9 @@ class _LoginPageState extends State<LoginPage> {
 
                   Center(
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/register');
+                      },
                       child: RichText(
                         text: const TextSpan(
                           text: "Ще не маєте акаунта? ",
