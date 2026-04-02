@@ -50,7 +50,7 @@ class HomePage extends StatelessWidget {
 
                       ElevatedButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, '/detail');
+                          Navigator.pushNamed(context, '/products');
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: const Color(0xFF5B4FCF),
@@ -76,7 +76,7 @@ class HomePage extends StatelessWidget {
 
                       InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, '/detail');
+                          Navigator.pushNamed(context, '/products');
                         },
                         child: Container(
                           width: 280,
@@ -134,7 +134,7 @@ class HomePage extends StatelessWidget {
 
                           ElevatedButton(
                             onPressed: () {
-                              Navigator.pushNamed(context, '/detail');
+                              Navigator.pushNamed(context, '/products');
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF5B4FCF),
@@ -163,7 +163,7 @@ class HomePage extends StatelessWidget {
                       child: Center(
                         child: InkWell(
                           onTap: () {
-                            Navigator.pushNamed(context, '/detail');
+                            Navigator.pushNamed(context, '/products');
                           },
                           child: Container(
                             width: 400,

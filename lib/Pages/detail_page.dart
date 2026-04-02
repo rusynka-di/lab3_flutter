@@ -5,12 +5,24 @@ class DetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    bool isSmallScreen = screenWidth < 900;
+
     return Scaffold(
       backgroundColor: Colors.white,
 
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: const Text(
           "Деталі товару",
           style: TextStyle(
@@ -26,29 +38,24 @@ class DetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
-
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Container(
-                  height: 500,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(16),
-                    image: const DecorationImage(
-                      image: AssetImage("assets/images/IMG_4281.JPG"),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ),
-
-              const SizedBox(width: 30),
-
-              Expanded(
-                child: Column(
+          child: isSmallScreen
+              ? Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      height: 420,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(16),
+                        image: const DecorationImage(
+                          image: AssetImage("assets/images/IMG_4281.JPG"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 25),
+
                     const Text(
                       "Пальто Oversize",
                       style: TextStyle(
@@ -98,14 +105,13 @@ class DetailPage extends StatelessWidget {
 
                     const SizedBox(height: 15),
 
-                    Row(
+                    Wrap(
+                      spacing: 12,
+                      runSpacing: 12,
                       children: [
                         buildSizeBox("S"),
-                        const SizedBox(width: 12),
                         buildSizeBox("M"),
-                        const SizedBox(width: 12),
                         buildSizeBox("L"),
-                        const SizedBox(width: 12),
                         buildSizeBox("XL"),
                       ],
                     ),
@@ -116,7 +122,7 @@ class DetailPage extends StatelessWidget {
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5B4FCF),
-                        minimumSize: const Size(220, 50),
+                        minimumSize: const Size(double.infinity, 50),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
@@ -154,10 +160,138 @@ class DetailPage extends StatelessWidget {
                       ),
                     ),
                   ],
+                )
+              : Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        height: 500,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(16),
+                          image: const DecorationImage(
+                            image: AssetImage("assets/images/IMG_4281.JPG"),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(width: 30),
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            "Пальто Oversize",
+                            style: TextStyle(
+                              fontSize: 30,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          const Text(
+                            "1499 грн",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF5B4FCF),
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+
+                          const SizedBox(height: 25),
+
+                          const Text(
+                            "Стильне жіноче пальто oversize для щоденного образу. "
+                            "Підходить для весняного та осіннього сезону. "
+                            "Поєднує комфорт, сучасний вигляд та універсальність.",
+                            style: TextStyle(
+                              fontSize: 16,
+                              height: 1.6,
+                              color: Color(0xFF4F4F4F),
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          const Text(
+                            "Доступні розміри",
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+
+                          const SizedBox(height: 15),
+
+                          Row(
+                            children: [
+                              buildSizeBox("S"),
+                              const SizedBox(width: 12),
+                              buildSizeBox("M"),
+                              const SizedBox(width: 12),
+                              buildSizeBox("L"),
+                              const SizedBox(width: 12),
+                              buildSizeBox("XL"),
+                            ],
+                          ),
+
+                          const SizedBox(height: 30),
+
+                          ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xFF5B4FCF),
+                              minimumSize: const Size(220, 50),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                            ),
+                            child: const Text(
+                              "Купити зараз",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: "Urbanist",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+
+                          const SizedBox(height: 20),
+
+                          const Text(
+                            "Категорія: Жіночий одяг",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+
+                          const SizedBox(height: 8),
+
+                          const Text(
+                            "Колір: Сірий",
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey,
+                              fontFamily: "Urbanist",
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
         ),
       ),
     );
