@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import '../Components/text_field.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -9,6 +10,95 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
+
+  bool isLoading = false;
+
+  Future<void> registerUser() async {
+    if (passwordController.text.trim() !=
+        confirmPasswordController.text.trim()) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Паролі не співпадають"),
+        ),
+      );
+      return;
+    }
+
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      UserCredential userCredential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: emailController.text.trim(),
+        password: passwordController.text.trim(),
+      );
+
+      await userCredential.user?.updateDisplayName(nameController.text.trim());
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Реєстрація успішна"),
+        ),
+      );
+
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        '/main',
+        (Route<dynamic> route) => false,
+      );
+    } on FirebaseAuthException catch (e) {
+      String errorMessage = "Помилка реєстрації";
+
+      if (e.code == 'email-already-in-use') {
+        errorMessage = "Цей email вже використовується";
+      } else if (e.code == 'invalid-email') {
+        errorMessage = "Некоректний email";
+      } else if (e.code == 'weak-password') {
+        errorMessage = "Пароль занадто слабкий";
+      }
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(errorMessage),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Сталася помилка"),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,40 +137,38 @@ class _RegisterPageState extends State<RegisterPage> {
 
                   const SizedBox(height: 40),
 
-                  const CustomTextField(
+                  CustomTextField(
                     labelText: "Ім'я",
+                    controller: nameController,
                   ),
 
                   const SizedBox(height: 24),
 
-                  const CustomTextField(
+                  CustomTextField(
                     labelText: "Електронна пошта",
+                    controller: emailController,
                   ),
 
                   const SizedBox(height: 24),
 
-                  const CustomTextField(
+                  CustomTextField(
                     labelText: "Пароль",
                     isObscure: true,
+                    controller: passwordController,
                   ),
 
                   const SizedBox(height: 24),
 
-                  const CustomTextField(
+                  CustomTextField(
                     labelText: "Підтвердіть пароль",
                     isObscure: true,
+                    controller: confirmPasswordController,
                   ),
 
                   const SizedBox(height: 30),
 
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        '/main',
-                        (Route<dynamic> route) => false,
-                      );
-                    },
+                    onPressed: isLoading ? null : registerUser,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5B4FCF),
                       minimumSize: const Size(double.infinity, 55),
@@ -88,15 +176,19 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Text(
-                      "Зареєструватися",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontFamily: "Urbanist",
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    child: isLoading
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : const Text(
+                            "Зареєструватися",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontFamily: "Urbanist",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                   ),
 
                   const SizedBox(height: 35),

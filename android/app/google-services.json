@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "494547887935",
+    "project_id": "fashion-app-lab4",
+    "storage_bucket": "fashion-app-lab4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:494547887935:android:7aab6a3a74604cdd9cd58a",
+        "android_client_info": {
+          "package_name": "com.example.lab3_flutter"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCSP4U2mfw1pWxH1MypJG2lXuk80pHXdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
