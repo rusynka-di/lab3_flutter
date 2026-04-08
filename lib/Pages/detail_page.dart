@@ -1,7 +1,14 @@
-import 'package:flutter/material.dart';
+     import 'package:flutter/material.dart';
 
-class DetailPage extends StatelessWidget {
+class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  String selectedSize = "M";
 
   @override
   Widget build(BuildContext context) {
@@ -10,7 +17,6 @@ class DetailPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
-
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -34,7 +40,6 @@ class DetailPage extends StatelessWidget {
         ),
         centerTitle: false,
       ),
-
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20),
@@ -53,9 +58,7 @@ class DetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 25),
-
                     const Text(
                       "Пальто Oversize",
                       style: TextStyle(
@@ -65,9 +68,7 @@ class DetailPage extends StatelessWidget {
                         fontFamily: "Urbanist",
                       ),
                     ),
-
                     const SizedBox(height: 15),
-
                     const Text(
                       "1499 грн",
                       style: TextStyle(
@@ -77,9 +78,7 @@ class DetailPage extends StatelessWidget {
                         fontFamily: "Urbanist",
                       ),
                     ),
-
                     const SizedBox(height: 25),
-
                     const Text(
                       "Стильне жіноче пальто oversize для щоденного образу. "
                       "Підходить для весняного та осіннього сезону. "
@@ -91,9 +90,7 @@ class DetailPage extends StatelessWidget {
                         fontFamily: "Urbanist",
                       ),
                     ),
-
                     const SizedBox(height: 30),
-
                     const Text(
                       "Доступні розміри",
                       style: TextStyle(
@@ -102,9 +99,7 @@ class DetailPage extends StatelessWidget {
                         fontFamily: "Urbanist",
                       ),
                     ),
-
                     const SizedBox(height: 15),
-
                     Wrap(
                       spacing: 12,
                       runSpacing: 12,
@@ -115,9 +110,17 @@ class DetailPage extends StatelessWidget {
                         buildSizeBox("XL"),
                       ],
                     ),
-
+                    const SizedBox(height: 20),
+                    Text(
+                      "Обраний розмір: $selectedSize",
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: Color(0xFF5B4FCF),
+                        fontFamily: "Urbanist",
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
                     const SizedBox(height: 30),
-
                     ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
@@ -137,9 +140,7 @@ class DetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(height: 20),
-
                     const Text(
                       "Категорія: Жіночий одяг",
                       style: TextStyle(
@@ -148,9 +149,7 @@ class DetailPage extends StatelessWidget {
                         fontFamily: "Urbanist",
                       ),
                     ),
-
                     const SizedBox(height: 8),
-
                     const Text(
                       "Колір: Сірий",
                       style: TextStyle(
@@ -176,9 +175,7 @@ class DetailPage extends StatelessWidget {
                         ),
                       ),
                     ),
-
                     const SizedBox(width: 30),
-
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -192,9 +189,7 @@ class DetailPage extends StatelessWidget {
                               fontFamily: "Urbanist",
                             ),
                           ),
-
                           const SizedBox(height: 15),
-
                           const Text(
                             "1499 грн",
                             style: TextStyle(
@@ -204,9 +199,7 @@ class DetailPage extends StatelessWidget {
                               fontFamily: "Urbanist",
                             ),
                           ),
-
                           const SizedBox(height: 25),
-
                           const Text(
                             "Стильне жіноче пальто oversize для щоденного образу. "
                             "Підходить для весняного та осіннього сезону. "
@@ -218,9 +211,7 @@ class DetailPage extends StatelessWidget {
                               fontFamily: "Urbanist",
                             ),
                           ),
-
                           const SizedBox(height: 30),
-
                           const Text(
                             "Доступні розміри",
                             style: TextStyle(
@@ -229,9 +220,7 @@ class DetailPage extends StatelessWidget {
                               fontFamily: "Urbanist",
                             ),
                           ),
-
                           const SizedBox(height: 15),
-
                           Row(
                             children: [
                               buildSizeBox("S"),
@@ -243,9 +232,17 @@ class DetailPage extends StatelessWidget {
                               buildSizeBox("XL"),
                             ],
                           ),
-
+                          const SizedBox(height: 20),
+                          Text(
+                            "Обраний розмір: $selectedSize",
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Color(0xFF5B4FCF),
+                              fontFamily: "Urbanist",
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
                           const SizedBox(height: 30),
-
                           ElevatedButton(
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
@@ -265,9 +262,7 @@ class DetailPage extends StatelessWidget {
                               ),
                             ),
                           ),
-
                           const SizedBox(height: 20),
-
                           const Text(
                             "Категорія: Жіночий одяг",
                             style: TextStyle(
@@ -276,9 +271,7 @@ class DetailPage extends StatelessWidget {
                               fontFamily: "Urbanist",
                             ),
                           ),
-
                           const SizedBox(height: 8),
-
                           const Text(
                             "Колір: Сірий",
                             style: TextStyle(
@@ -298,21 +291,34 @@ class DetailPage extends StatelessWidget {
   }
 
   Widget buildSizeBox(String size) {
-    return Container(
-      width: 55,
-      height: 55,
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey.shade400),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Text(
-        size,
-        style: const TextStyle(
-          fontSize: 18,
-          fontWeight: FontWeight.w600,
-          fontFamily: "Urbanist",
+    bool isSelected = selectedSize == size;
+
+    return InkWell(
+      onTap: () {
+        setState(() {
+          selectedSize = size;
+        });
+      },
+      borderRadius: BorderRadius.circular(10),
+      child: Container(
+        width: 55,
+        height: 55,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isSelected ? const Color(0xFF5B4FCF) : Colors.white,
+          border: Border.all(
+            color: isSelected ? const Color(0xFF5B4FCF) : Colors.grey.shade400,
+          ),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Text(
+          size,
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+            fontFamily: "Urbanist",
+            color: isSelected ? Colors.white : Colors.black,
+          ),
         ),
       ),
     );
