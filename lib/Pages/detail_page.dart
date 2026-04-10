@@ -1,4 +1,6 @@
-     import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -9,6 +11,48 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   String selectedSize = "M";
+  bool isLoading = false;
+
+  Future<void> saveOrder() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      final user = FirebaseAuth.instance.currentUser;
+
+      await FirebaseFirestore.instance.collection('orders').add({
+        'productName': 'Пальто Oversize',
+        'size': selectedSize,
+        'price': '1499 грн',
+        'userEmail': user?.email ?? 'unknown',
+        'userName': user?.displayName ?? 'unknown',
+        'createdAt': Timestamp.now(),
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Замовлення збережено"),
+        ),
+      );
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Помилка при збереженні"),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,7 +166,7 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     const SizedBox(height: 30),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: isLoading ? null : saveOrder,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: const Color(0xFF5B4FCF),
                         minimumSize: const Size(double.infinity, 50),
@@ -130,15 +174,19 @@ class _DetailPageState extends State<DetailPage> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                       ),
-                      child: const Text(
-                        "Купити зараз",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontFamily: "Urbanist",
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child: isLoading
+                          ? const CircularProgressIndicator(
+                              color: Colors.white,
+                            )
+                          : const Text(
+                              "Купити зараз",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontFamily: "Urbanist",
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
                     ),
                     const SizedBox(height: 20),
                     const Text(
@@ -244,7 +292,7 @@ class _DetailPageState extends State<DetailPage> {
                           ),
                           const SizedBox(height: 30),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: isLoading ? null : saveOrder,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xFF5B4FCF),
                               minimumSize: const Size(220, 50),
@@ -252,15 +300,19 @@ class _DetailPageState extends State<DetailPage> {
                                 borderRadius: BorderRadius.circular(10),
                               ),
                             ),
-                            child: const Text(
-                              "Купити зараз",
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 18,
-                                fontFamily: "Urbanist",
-                                fontWeight: FontWeight.w600,
-                              ),
-                            ),
+                            child: isLoading
+                                ? const CircularProgressIndicator(
+                                    color: Colors.white,
+                                  )
+                                : const Text(
+                                    "Купити зараз",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontFamily: "Urbanist",
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
                           ),
                           const SizedBox(height: 20),
                           const Text(

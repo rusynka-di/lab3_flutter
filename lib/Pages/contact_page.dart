@@ -1,7 +1,74 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-class ContactPage extends StatelessWidget {
+class ContactPage extends StatefulWidget {
   const ContactPage({super.key});
+
+  @override
+  State<ContactPage> createState() => _ContactPageState();
+}
+
+class _ContactPageState extends State<ContactPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController messageController = TextEditingController();
+
+  bool isLoading = false;
+
+  Future<void> sendMessage() async {
+    if (nameController.text.trim().isEmpty ||
+        messageController.text.trim().isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Заповніть усі поля"),
+        ),
+      );
+      return;
+    }
+
+    try {
+      setState(() {
+        isLoading = true;
+      });
+
+      await FirebaseFirestore.instance.collection('messages').add({
+        'name': nameController.text.trim(),
+        'message': messageController.text.trim(),
+        'createdAt': Timestamp.now(),
+      });
+
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Повідомлення надіслано"),
+        ),
+      );
+
+      nameController.clear();
+      messageController.clear();
+    } catch (e) {
+      if (!mounted) return;
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Помилка при надсиланні"),
+        ),
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    nameController.dispose();
+    messageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -106,8 +173,9 @@ class ContactPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               TextField(
+                controller: nameController,
                 decoration: InputDecoration(
-                  hintText: "Ваше ім'я",
+                  hintText: "Ваше ім'я та прізвище",
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                   ),
@@ -117,6 +185,7 @@ class ContactPage extends StatelessWidget {
               const SizedBox(height: 15),
 
               TextField(
+                controller: messageController,
                 maxLines: 4,
                 decoration: InputDecoration(
                   hintText: "Повідомлення",
@@ -129,13 +198,7 @@ class ContactPage extends StatelessWidget {
               const SizedBox(height: 20),
 
               ElevatedButton(
-                onPressed: () {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Повідомлення надіслано"),
-                    ),
-                  );
-                },
+                onPressed: isLoading ? null : sendMessage,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF5B4FCF),
                   minimumSize: const Size(double.infinity, 50),
@@ -143,14 +206,18 @@ class ContactPage extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                   ),
                 ),
-                child: const Text(
-                  "Надіслати",
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontFamily: "Urbanist",
-                  ),
-                ),
+                child: isLoading
+                    ? const CircularProgressIndicator(
+                        color: Colors.white,
+                      )
+                    : const Text(
+                        "Надіслати",
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontFamily: "Urbanist",
+                        ),
+                      ),
               ),
             ],
           ),
